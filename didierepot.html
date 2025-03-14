@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#5D5CDE',
+            secondary: '#3F3F8A',
+            light: {
+              bg: '#FFFFFF',
+              text: '#333333',
+              card: '#F5F5F5'
+            },
+            dark: {
+              bg: '#181818',
+              text: '#E0E0E0',
+              card: '#262626'
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-in-out forwards',
+            'slide-up': 'slideUp 0.8s ease-in-out forwards',
+            'grow': 'grow 0.5s ease-in-out forwards',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(50px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' }
+            },
+            grow: {
+              '0%': { transform: 'scale(0.95)', opacity: '0.8' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #5D5CDE;
+      border-radius: 10px;
+    }
+
+    /* Hide sections until they're scrolled into view */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .scroll-animate.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Skill bar animation */
+    .skill-bar {
+      height: 10px;
+      border-radius: 5px;
+      background: rgba(93, 92, 222, 0.2);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      border-radius: 5px;
+      background: #5D5CDE;
+      width: 0;
+      transition: width 1.5s ease-in-out;
+    }
+
+    /* Timeline styling */
+    .timeline-container {
+      position: relative;
+    }
+    
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 17px;
+      height: 100%;
+      width: 4px;
+      background: #5D5CDE;
+      opacity: 0.3;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 45px;
+      margin-bottom: 24px;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 8px;
+      top: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #5D5CDE;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .timeline-item:hover .timeline-dot {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(93, 92, 222, 0.6);
+    }
+
+    /* Card hover effects */
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(93, 92, 222, 0.2);
+    }
+
+    /* Button animation */
+    .button-animate {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .button-animate:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.6s ease;
+    }
+    
+    .button-animate:hover:after {
+      left: 100%;
+    }
+
+    /* Glass effect for dark mode */
+    .dark .glass-effect {
+      background: rgba(38, 38, 38, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md z-50 transition-all duration-300 shadow-md">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo/Name -->
+        <a href="#" class="text-2xl font-bold text-primary">Didiemu</a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#about" class="nav-link hover:text-primary transition-colors">About</a>
+          <a href="#education" class="nav-link hover:text-primary transition-colors">Education</a>
+          <a href="#experience" class="nav-link hover:text-primary transition-colors">Experience</a>
+          <a href="#skills" class="nav-link hover:text-primary transition-colors">Skills</a>
+          <a href="#awards" class="nav-link hover:text-primary transition-colors">Awards</a>
+          <a href="#contact" class="nav-link hover:text-primary transition-colors">Contact</a>
+          <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:bg-primary hover:text-white">
+            <svg id="light-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg id="dark-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Mobile Navigation Toggle -->
+        <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Mobile Navigation Menu -->
+      <div id="mobile-menu" class="md:hidden h-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="py-2 space-y-2">
+          <a href="#about" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">About</a>
+          <a href="#education" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Education</a>
+          <a href="#experience" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Experience</a>
+          <a href="#skills" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Skills</a>
+          <a href="#awards" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Awards</a>
+          <a href="#contact" class="mobile-nav-link block py-2 px-4 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Contact</a>
+          <div class="px-4 py-2">
+            <div class="flex items-center justify-between">
+              <span>Dark Mode</span>
+              <button id="mobile-theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:bg-primary hover:text-white">
+                <svg id="mobile-light-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                <svg id="mobile-dark-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Header and Hero Section -->
+  <header class="relative min-h-screen flex flex-col items-center justify-center p-6 overflow-hidden pt-20">
+    <!-- The theme toggle button from navbar now handles this functionality -->
+
+    <!-- Background Animation -->
+    <div class="absolute inset-0 overflow-hidden z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/5 dark:to-secondary/5"></div>
+      <div id="particles" class="absolute inset-0"></div>
+    </div>
+
+    <div class="z-10 text-center max-w-3xl mx-auto">
+      <div class="inline-block mb-6 p-2 rounded-full bg-primary/10 animate-pulse-slow">
+        <img id="profile-image" src="https://picsum.photos/200" alt="Profile" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary object-cover animate-grow">
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">Didiemu</h1>
+      <div class="animate-slide-up">
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-6">Student & Aspiring Professional</p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <a href="mailto:didiemu319@gmail.com" class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-secondary text-white rounded-full transition-all duration-300 button-animate">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+          </a>
+          <a href="tel:+250799355994" class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-secondary text-white rounded-full transition-all duration-300 button-animate">
+            <i class="fas fa-phone"></i>
+            <span>Call</span>
+          </a>
+        </div>
+        <div class="flex justify-center space-x-6 text-gray-600 dark:text-gray-300">
+          <div class="text-center">
+            <span class="block text-2xl font-bold text-primary">Huye</span>
+            <span class="text-sm">City</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-2xl font-bold text-primary">Rwanda</span>
+            <span class="text-sm">Country</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 animate-bounce">
+        <a href="#about" class="inline-block text-primary">
+          <i class="fas fa-chevron-down text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- About Section -->
+    <section id="about" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">About Me</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 md:p-8 shadow-lg hover-card glass-effect">
+          <p class="text-lg leading-relaxed mb-6">
+            I am a student at Agahozo-Shalom Youth Village in Rwanda, pursuing an Advanced Level education in Physics, Chemistry, and Biology. 
+            Beyond academics, I'm deeply involved in community activities, serving as a committee member in the Critical Thinking for Peace club and as a pianist in the ASYV Band.
+          </p>
+          <p class="text-lg leading-relaxed">
+            My leadership experience includes coordinating club activities and serving as the Inspire Me vice president. 
+            I'm also passionate about sports, having played on both the volleyball and football teams. 
+            I'm proficient in multiple languages including Kinyarwanda, English, Swahili, and French, and have been recognized with awards in Model United Nations events.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">Education</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 md:p-8 shadow-lg hover-card glass-effect">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-primary">Agahozo-Shalom Youth Village</h3>
+              <p class="text-gray-600 dark:text-gray-300">Advanced Level - PCB (Physics, Chemistry, Biology)</p>
+            </div>
+            <div class="text-right">
+              <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">Expected Graduation: July 2026</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="text-lg">
+              Currently pursuing my Advanced Level education with a focus on PCB (Physics, Chemistry, and Biology).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">Work Experience & Activities</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="timeline-container">
+          <!-- CTP Club Experience -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">CTP Club (Critical Thinking for Peace)</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Committee Member & Main Coordinator</p>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">2024-2025</span>
+                </div>
+              </div>
+              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                <li>Served as Inspire Me vice president</li>
+                <li>Invited various speakers for inspirational sessions</li>
+                <li>Coordinated and organized all club activities</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ASYV Band Experience -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">ASYV Live Band</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Pianist & Committee Advisor</p>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">2024-2025</span>
+                </div>
+              </div>
+              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                <li>Performed as pianist during village events (primarily Friday gatherings)</li>
+                <li>Served as advisor on the ASYV live band committee</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sports Experience -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-primary">ASYV Sports Teams</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Volleyball & Football Player</p>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">2024-2025</span>
+                </div>
+              </div>
+              <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                <li>Played right position on the volleyball team</li>
+                <li>Served as a defender on the football team</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">Skills & Languages</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Language Skills -->
+          <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+            <h3 class="text-xl font-bold mb-6 text-primary">Languages</h3>
+            
+            <div class="mb-4">
+              <div class="flex justify-between mb-1">
+                <span>Kinyarwanda</span>
+                <span>Native</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="100%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between mb-1">
+                <span>French</span>
+                <span>Native</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="100%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between mb-1">
+                <span>English</span>
+                <span>Proficient</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="90%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between mb-1">
+                <span>Swahili</span>
+                <span>Intermediate</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-progress" data-width="65%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Other Skills -->
+          <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+            <h3 class="text-xl font-bold mb-6 text-primary">Professional Skills</h3>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="skill-card bg-primary/10 p-4 rounded-lg text-center">
+                <i class="fas fa-music text-3xl text-primary mb-2"></i>
+                <h4 class="font-semibold">Music</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Piano performance</p>
+              </div>
+              
+              <div class="skill-card bg-primary/10 p-4 rounded-lg text-center">
+                <i class="fas fa-comments text-3xl text-primary mb-2"></i>
+                <h4 class="font-semibold">Public Speaking</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Presentation skills</p>
+              </div>
+              
+              <div class="skill-card bg-primary/10 p-4 rounded-lg text-center">
+                <i class="fas fa-users text-3xl text-primary mb-2"></i>
+                <h4 class="font-semibold">Leadership</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Club coordination</p>
+              </div>
+              
+              <div class="skill-card bg-primary/10 p-4 rounded-lg text-center">
+                <i class="fas fa-futbol text-3xl text-primary mb-2"></i>
+                <h4 class="font-semibold">Sports</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Football & Volleyball</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">Awards & Certifications</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-award text-3xl text-primary mr-4"></i>
+              <div>
+                <h3 class="text-xl font-bold">Best Delegate</h3>
+                <p class="text-gray-600 dark:text-gray-300">ASYV Model United Nations</p>
+              </div>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300">
+              Recognized for outstanding performance and contribution during the ASYV Model United Nations program.
+            </p>
+          </div>
+          
+          <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 shadow-lg hover-card glass-effect">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-medal text-3xl text-primary mr-4"></i>
+              <div>
+                <h3 class="text-xl font-bold">Award Recipient</h3>
+                <p class="text-gray-600 dark:text-gray-300">Green Hill's Model United Nations</p>
+              </div>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300">
+              Honored with an award at the Green Hill's Model United Nations event for exceptional performance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 scroll-animate">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center relative">
+          <span class="relative z-10">Contact Me</span>
+          <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-primary"></span>
+        </h2>
+        <div class="bg-light-card dark:bg-dark-card rounded-xl p-6 md:p-8 shadow-lg hover-card glass-effect">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-bold mb-4 text-primary">Get in Touch</h3>
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <i class="fas fa-envelope text-primary"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Email</p>
+                    <a href="mailto:didiemu319@gmail.com" class="hover:text-primary transition-colors">didiemu319@gmail.com</a>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <i class="fas fa-phone text-primary"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Phone</p>
+                    <a href="tel:+250799355994" class="hover:text-primary transition-colors">+250 799 355 994</a>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <i class="fas fa-map-marker-alt text-primary"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Location</p>
+                    <p>Huye, Rwanda</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-bold mb-4 text-primary">Send a Message</h3>
+              <form id="contact-form" class="space-y-4">
+                <div>
+                  <label for="name" class="block mb-1 text-sm">Your Name</label>
+                  <input type="text" id="name" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-dark-bg text-base" required>
+                </div>
+                
+                <div>
+                  <label for="email" class="block mb-1 text-sm">Your Email</label>
+                  <input type="email" id="email" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-dark-bg text-base" required>
+                </div>
+                
+                <div>
+                  <label for="message" class="block mb-1 text-sm">Message</label>
+                  <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-dark-bg text-base" required></textarea>
+                </div>
+                
+                <button type="submit" class="w-full py-3 px-6 bg-primary hover:bg-secondary text-white rounded-lg transition-all duration-300 button-animate">
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-light-card dark:bg-dark-card py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2024 Didiemu. All rights reserved.</p>
+      <div class="mt-4 flex justify-center space-x-4">
+        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+
+    // Listen for dark mode changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (event.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    });
+
+    // Dark mode toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+    
+    // Mobile theme toggle
+    document.getElementById('mobile-theme-toggle').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      if (mobileMenu.style.height === '0px' || mobileMenu.style.height === '') {
+        mobileMenu.style.height = mobileMenu.scrollHeight + 'px';
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileMenu.style.height = '0px';
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+    
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.style.height = '0px';
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+    
+    // Highlight active navigation link based on scroll position
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    function highlightNavLink() {
+      let scrollPosition = window.scrollY;
+      
+      // Add offset for fixed navbar
+      scrollPosition += 100;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          // Desktop nav
+          navLinks.forEach(link => {
+            link.classList.remove('text-primary', 'font-semibold');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('text-primary', 'font-semibold');
+            }
+          });
+          
+          // Mobile nav
+          mobileNavLinks.forEach(link => {
+            link.classList.remove('text-primary', 'font-semibold');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('text-primary', 'font-semibold');
+            }
+          });
+        }
+      });
+    }
+    
+    // Navbar scroll effect - transparent at top, solid when scrolling
+    const navbar = document.getElementById('navbar');
+    
+    function navbarScrollEffect() {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-lg');
+        navbar.classList.remove('bg-white/80', 'dark:bg-dark-bg/80');
+        navbar.classList.add('bg-white', 'dark:bg-dark-bg');
+      } else {
+        navbar.classList.remove('shadow-lg');
+        navbar.classList.remove('bg-white', 'dark:bg-dark-bg');
+        navbar.classList.add('bg-white/80', 'dark:bg-dark-bg/80');
+      }
+    }
+    
+    window.addEventListener('scroll', () => {
+      highlightNavLink();
+      navbarScrollEffect();
+    });
+    
+    // Initialize navbar state
+    highlightNavLink();
+    navbarScrollEffect();
+
+    // Scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          
+          // Animate skill bars when skills section is visible
+          if (entry.target.id === 'skills') {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+              const width = bar.getAttribute('data-width');
+              bar.style.width = width;
+            });
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-animate').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // In an actual implementation, you would send the form data to a server
+      // For this demo, we'll just show a success message
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      };
+      
+      console.log('Form submitted:', formData);
+      
+      // Reset form
+      this.reset();
+      
+      // Show success message (in a real app)
+      alert('Message sent successfully! This is a demo, so no actual message was sent.');
+    });
+
+    // Background particles effect
+    class Particle {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.color = '#5D5CDE';
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        
+        // Bounce off edges
+        if (this.x > this.canvas.width || this.x < 0) {
+          this.speedX = -this.speedX;
+        }
+        
+        if (this.y > this.canvas.height || this.y < 0) {
+          this.speedY = -this.speedY;
+        }
+      }
+      
+      draw() {
+        this.ctx.fillStyle = this.color;
+        this.ctx.globalAlpha = this.opacity;
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.globalAlpha = 1;
+      }
+    }
+
+    // Initialize particles
+    const particlesContainer = document.getElementById('particles');
+    const canvas = document.createElement('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    particlesContainer.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const particleCount = 50;
+    
+    function initParticles() {
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle(canvas));
+      }
+    }
+    
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      
+      // Draw lines between nearby particles
+      ctx.strokeStyle = '#5D5CDE';
+      ctx.lineWidth = 0.3;
+      
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 100) {
+            ctx.globalAlpha = 0.2 * (1 - distance / 100);
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animateParticles);
+    }
+    
+    // Resize canvas when window size changes
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particles = [];
+      initParticles();
+    });
+    
+    // Start animation
+    initParticles();
+    animateParticles();
+    
+    // Set a placeholder image for profile
+    document.getElementById('profile-image').onerror = function() {
+      this.src = 'data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3e%3crect width="200" height="200" fill="%235D5CDE" opacity="0.2"/%3e%3ccircle cx="100" cy="70" r="40" fill="%235D5CDE" opacity="0.5"/%3e%3cpath d="M40,140 C40,100 160,100 160,140 L160,180 L40,180 L40,140 Z" fill="%235D5CDE" opacity="0.5"/%3e%3c/svg%3e';
+    };
+  </script>
+</body>
+</html>
