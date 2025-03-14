@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFTED MINDS - Empowering Minds, Building Futures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#FF6B6B',
+                        accent: '#4ECDC4',
+                        info: '#FFD166',
+                        success: '#06D6A0',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #5D5CDE, #4ECDC4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(93, 92, 222, 0.8), rgba(78, 205, 196, 0.8));
+        }
+        
+        .card-gradient-1 {
+            background: linear-gradient(135deg, #5D5CDE, #4ECDC4);
+        }
+        
+        .card-gradient-2 {
+            background: linear-gradient(135deg, #FF6B6B, #FFD166);
+        }
+        
+        .card-gradient-3 {
+            background: linear-gradient(135deg, #06D6A0, #4ECDC4);
+        }
+        
+        .card-gradient-4 {
+            background: linear-gradient(135deg, #FFD166, #FF6B6B);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.4;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+        
+        .animated-card {
+            transition: all 0.3s ease;
+        }
+        
+        .animated-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .gradient-card {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        .gradient-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Dark mode styles */
+        .dark {
+            color-scheme: dark;
+        }
+        
+        .dark .blob {
+            opacity: 0.2;
+        }
+        
+        /* Animation for the logo */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .logo-pulse {
+            animation: pulse 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <!-- Background blobs -->
+    <div class="blob w-96 h-96 bg-primary top-0 left-0"></div>
+    <div class="blob w-96 h-96 bg-secondary bottom-0 right-0"></div>
+    <div class="blob w-64 h-64 bg-accent top-1/3 right-1/4"></div>
+    
+    <!-- Dark mode toggle -->
+    <button id="darkModeToggle" class="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 p-2 rounded-full shadow-lg">
+        <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+        <i class="fas fa-moon text-blue-300 hidden dark:block"></i>
+    </button>
+    
+    <!-- Header -->
+    <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-40 shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-3xl font-bold logo-pulse">
+                        <span class="gradient-text">LIFTED</span> 
+                        <span class="text-gray-800 dark:text-white">MINDS</span>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">About</a>
+                    <a href="#services" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">Services</a>
+                    <a href="#why-us" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">Why Us</a>
+                    <a href="#how-it-works" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">How It Works</a>
+                    <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <a href="#" class="hidden md:block bg-primary hover:bg-primary/90 text-white py-2 px-6 rounded-full font-medium transition-all">
+                    Get Started
+                </a>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden bg-white dark:bg-gray-800 shadow-xl rounded-b-2xl px-4 py-4 hidden">
+            <nav class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">Home</a>
+                <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">About</a>
+                <a href="#services" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">Services</a>
+                <a href="#why-us" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">Why Us</a>
+                <a href="#how-it-works" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">How It Works</a>
+                <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary font-medium transition-colors py-2">Contact</a>
+                <a href="#" class="bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-full font-medium transition-all text-center mt-2">
+                    Get Started
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-4 py-20">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 text-center md:text-left" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span class="gradient-text">Empowering Minds,</span>
+                        <br />
+                        <span class="text-gray-800 dark:text-white">Building Futures</span>
+                    </h1>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg mb-8 max-w-xl">
+                        Connecting individuals with the guidance they need to succeed—whether through mentorship or psychosocial support.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#how-it-works" class="bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all text-center">
+                            Get Started
+                        </a>
+                        <a href="#services" class="bg-white dark:bg-gray-800 border-2 border-primary text-primary hover:bg-gray-50 dark:hover:bg-gray-700 py-3 px-8 rounded-full font-medium transition-all text-center">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 mt-12 md:mt-0" data-aos="fade-left">
+                    <div class="relative">
+                        <!-- Animated hero graphic (abstract representation of connection) -->
+                        <div class="w-full h-80 md:h-96 relative overflow-hidden rounded-2xl hero-gradient flex items-center justify-center">
+                            <!-- Animated connecting dots and lines -->
+                            <div id="connectedNodes" class="absolute inset-0"></div>
+                            
+                            <div class="z-10 text-white text-center p-6">
+                                <h2 class="text-3xl font-bold mb-4">Connect & Grow</h2>
+                                <p class="text-lg">Building meaningful connections that transform lives</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">About</span> Us
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    At LIFTED MINDS, we connect individuals with the guidance they need to succeed—whether through mentorship or psychosocial support. Our platform brings together professionals, mentors, mentees, and mental health experts to create meaningful connections that foster growth and well-being.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="gradient-card rounded-xl p-6 shadow-xl animated-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-users text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Community</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-center">
+                        Building a supportive community where individuals can connect, learn, and grow together.
+                    </p>
+                </div>
+                
+                <div class="gradient-card rounded-xl p-6 shadow-xl animated-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-brain text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Growth</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-center">
+                        Facilitating personal and professional development through expert guidance and resources.
+                    </p>
+                </div>
+                
+                <div class="gradient-card rounded-xl p-6 shadow-xl animated-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-hands-holding text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800 dark:text-white">Support</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-center">
+                        Providing mental health and psychosocial support to enhance overall well-being.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50 dark:bg-gray-800 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">Our Key</span> Services
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    We offer a range of services designed to meet the needs of various stakeholders in our community.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animated-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-3 card-gradient-1"></div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-primary/10 p-3 rounded-lg mr-4">
+                                <i class="fas fa-chalkboard-teacher text-primary text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">For Mentors</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Share your expertise and help others grow. Connect with mentees who can benefit from your knowledge and experience.
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-primary mr-2"></i>
+                                Expand your impact beyond your immediate circle
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-primary mr-2"></i>
+                                Flexible scheduling that works with your availability
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-primary mr-2"></i>
+                                Earn additional income while making a difference
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animated-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-3 card-gradient-2"></div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-secondary/10 p-3 rounded-lg mr-4">
+                                <i class="fas fa-user-graduate text-secondary text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">For Mentees</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Access career guidance, life coaching, and personal development resources tailored to your specific needs.
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                Personalized guidance from experienced professionals
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                Develop skills and knowledge relevant to your goals
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-secondary mr-2"></i>
+                                Build a network of supportive connections
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animated-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-3 card-gradient-3"></div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-accent/10 p-3 rounded-lg mr-4">
+                                <i class="fas fa-heart text-accent text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">For Psychosocial Workers</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Offer mental health support and expand your reach to those who need your expertise the most.
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-accent mr-2"></i>
+                                Connect with clients who match your specialization
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-accent mr-2"></i>
+                                Flexible remote or in-person consultation options
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-accent mr-2"></i>
+                                Secure platform for confidential interactions
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden animated-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-3 card-gradient-4"></div>
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-info/10 p-3 rounded-lg mr-4">
+                                <i class="fas fa-building text-info text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2 text-gray-800 dark:text-white">For Businesses</h3>
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Enhance employee development and advertise to a targeted audience of professionals and individuals.
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-info mr-2"></i>
+                                Employee development programs and resources
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-info mr-2"></i>
+                                Targeted advertising to relevant audiences
+                            </li>
+                            <li class="flex items-center text-gray-600 dark:text-gray-300">
+                                <i class="fas fa-check-circle text-info mr-2"></i>
+                                Corporate partnership opportunities
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">Why Choose</span> Us
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    What sets us apart and makes LIFTED MINDS the platform of choice for mentorship and psychosocial support.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 text-center animated-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-user-check text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Personalized Matching</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Find the perfect mentor or therapist based on your unique needs and preferences.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 text-center animated-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-graduation-cap text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Expert Content</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Access valuable resources from leading professionals in various fields.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 text-center animated-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-hand-holding-dollar text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Affordable & Accessible</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Offering affordable services to everyone, including underserved populations.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 text-center animated-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="w-16 h-16 rounded-full bg-info/20 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-comments text-info text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Community Engagement</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Participate in discussions, webinars, and group sessions with like-minded individuals.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gray-50 dark:bg-gray-800 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">How It</span> Works
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Getting started with LIFTED MINDS is simple and straightforward. Follow these steps to begin your journey.
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- Desktop Timeline -->
+                <div class="hidden md:block w-full h-2 bg-gray-200 dark:bg-gray-600 absolute top-1/2 transform -translate-y-1/2 z-0"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-16 h-16 rounded-full bg-white dark:bg-gray-700 border-4 border-primary flex items-center justify-center mx-auto mb-4 relative">
+                            <span class="text-primary text-2xl font-bold">1</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Sign Up</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Create your profile as a mentor, mentee, or psychosocial support seeker. Specify your interests, goals, and preferences.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-16 h-16 rounded-full bg-white dark:bg-gray-700 border-4 border-secondary flex items-center justify-center mx-auto mb-4">
+                            <span class="text-secondary text-2xl font-bold">2</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Match & Connect</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                We match you with the right professional based on your needs. Our algorithm ensures compatible connections.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-16 h-16 rounded-full bg-white dark:bg-gray-700 border-4 border-accent flex items-center justify-center mx-auto mb-4">
+                            <span class="text-accent text-2xl font-bold">3</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">Engage & Grow</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Start your personal and professional growth journey. Schedule sessions, access resources, and track your progress.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="bg-primary hover:bg-primary/90 text-white py-3 px-8 rounded-full font-medium transition-all inline-block" data-aos="fade-up">
+                    Start Your Journey
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Revenue Model Section (renamed to "Our Business Model") -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">Our Business</span> Model
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    How we sustain our platform while providing value to all stakeholders in our ecosystem.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg animated-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-handshake text-primary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Connection Commissions</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We earn commissions from successful mentor/mentee or therapist/client connections, ensuring we're incentivized to create quality matches.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg animated-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-briefcase text-secondary text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Consulting Services</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We provide specialized consulting services for organizations looking to improve their mentorship programs and employee well-being initiatives.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg animated-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-ad text-accent text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Ad Revenue</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We partner with relevant businesses to provide targeted advertising that adds value to our users while generating revenue for the platform.
+                    </p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg animated-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-info/20 flex items-center justify-center mr-4">
+                            <i class="fas fa-certificate text-info text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Online Courses & Certifications</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We offer premium courses and certification programs for personal and professional growth, created in collaboration with industry experts.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800 relative">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">
+                    <span class="gradient-text">Contact</span> Us
+                </h2>
+                <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Have questions or want to learn more? Get in touch with our team. We'd love to hear from you.
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <form class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary focus:ring focus:ring-primary/20 dark:focus:ring-primary/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-base" placeholder="John Doe">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary focus:ring focus:ring-primary/20 dark:focus:ring-primary/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-base" placeholder="john@example.com">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary focus:ring focus:ring-primary/20 dark:focus:ring-primary/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-base" placeholder="How can we help you?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-lg font-medium transition-all">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg h-full">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Get In Touch</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fas fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-1 text-gray-800 dark:text-white">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">liftedminds@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fas fa-globe text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-1 text-gray-800 dark:text-white">Website</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">liftminds.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mr-4 shrink-0">
+                                    <i class="fas fa-share-nodes text-accent text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold mb-1 text-gray-800 dark:text-white">Social Media</h4>
+                                    <div class="flex space-x-4 mt-2">
+                                        <a href="#" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors">
+                                            <i class="fab fa-facebook-f text-xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors">
+                                            <i class="fab fa-twitter text-xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors">
+                                            <i class="fab fa-instagram text-xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors">
+                                            <i class="fab fa-linkedin-in text-xl"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">
+                        <span class="gradient-text">LIFTED</span> 
+                        <span class="text-white">MINDS</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Empowering Minds, Building Futures
+                    </p>
+                    <p class="text-gray-400">
+                        Developed by UWAYO Samuel
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">Services</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">For Mentors</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">For Mentees</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">For Psychosocial Workers</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">For Businesses</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 LIFTED MINDS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS (Animate on Scroll)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            menuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking a nav link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Dark mode toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            
+            // Check user preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            // Toggle dark mode on button click
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+            });
+            
+            // Listen for system preference changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+            
+            // Create animated connected nodes in the hero section
+            createConnectedNodes();
+        });
+        
+        // Function to create connected nodes animation
+        function createConnectedNodes() {
+            const container = document.getElementById('connectedNodes');
+            if (!container) return;
+            
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
+            const nodeCount = 15;
+            const nodes = [];
+            
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'absolute rounded-full bg-white';
+                
+                // Random position
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+                
+                // Random size (3-6px)
+                const size = 3 + Math.random() * 3;
+                
+                node.style.width = `${size}px`;
+                node.style.height = `${size}px`;
+                node.style.left = `${x}px`;
+                node.style.top = `${y}px`;
+                node.style.opacity = '0.6';
+                
+                
+                // Random movement
+                const speedX = (Math.random() - 0.5) * 0.5;
+                const speedY = (Math.random() - 0.5) * 0.5;
+                
+                nodes.push({
+                    element: node,
+                    x, y,
+                    speedX, speedY
+                });
+                
+                container.appendChild(node);
+            }
+            
+            // Create SVG for connections
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '100%');
+            svg.setAttribute('height', '100%');
+            svg.style.position = 'absolute';
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.pointerEvents = 'none';
+            container.appendChild(svg);
+            
+            // Animation loop
+            function animate() {
+                // Update node positions
+                nodes.forEach(node => {
+                    node.x += node.speedX;
+                    node.y += node.speedY;
+                    
+                    // Bounce off walls
+                    if (node.x <= 0 || node.x >= width) node.speedX *= -1;
+                    if (node.y <= 0 || node.y >= height) node.speedY *= -1;
+                    
+                    // Update DOM
+                    node.element.style.left = `${node.x}px`;
+                    node.element.style.top = `${node.y}px`;
+                });
+                
+                // Clear old connections
+                while (svg.firstChild) {
+                    svg.removeChild(svg.firstChild);
+                }
+                
+                // Draw connections
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const dx = nodes[i].x - nodes[j].x;
+                        const dy = nodes[i].y - nodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        // Only connect close nodes
+                        if (distance < 100) {
+                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            line.setAttribute('x1', nodes[i].x);
+                            line.setAttribute('y1', nodes[i].y);
+                            line.setAttribute('x2', nodes[j].x);
+                            line.setAttribute('y2', nodes[j].y);
+                            line.setAttribute('stroke', 'white');
+                            line.setAttribute('stroke-width', '1');
+                            line.setAttribute('opacity', (1 - distance / 100) * 0.5);
+                            svg.appendChild(line);
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+    </script>
+</body>
+</html>
