@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWAYO Samuel | Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-light: #93C5FD;
+            --primary-dark: #1D4ED8;
+            --secondary: #0F766E;
+            --accent: #14B8A6;
+            --cream: #F8FAFC;
+            --dark-bg: #0F172A;
+            --dark-card: #1E293B;
+            --dark-text: #E2E8F0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            scroll-behavior: smooth;
+        }
+        
+        .dark {
+            --primary: #60A5FA;
+            --primary-light: #3B82F6;
+            color: var(--dark-text);
+        }
+        
+        .dark body {
+            background-color: var(--dark-bg);
+        }
+        
+        .dark .bg-cream {
+            background-color: var(--dark-card);
+        }
+        
+        .dark .text-secondary {
+            color: var(--dark-text);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-item:hover::before {
+            transform: scale(1.3);
+        }
+        
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background-color: var(--primary-light);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--primary-light);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                            rgba(255,255,255,0) 0%, 
+                            rgba(255,255,255,0.1) 50%, 
+                            rgba(255,255,255,0) 100%);
+            animation: progressShine 2s infinite;
+        }
+        
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .skill-badge {
+            background-color: var(--primary-light);
+            color: var(--dark-bg);
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-badge:hover {
+            background-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .skill-badge::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .skill-badge:hover::after {
+            opacity: 1;
+        }
+        
+        .dark .skill-badge {
+            background-color: var(--primary-dark);
+            color: var(--dark-text);
+        }
+        
+        .dark .skill-badge:hover {
+            background-color: var(--primary);
+        }
+        
+        #profile-picture {
+            border: 5px solid var(--primary);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #profile-picture:hover {
+            transform: scale(1.03);
+        }
+        
+        .profile-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(147, 197, 253, 0.4) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        #profile-picture:hover .profile-overlay {
+            opacity: 1;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .bg-primary-light {
+            background-color: var(--primary-light);
+        }
+        
+        .bg-cream {
+            background-color: var(--cream);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .text-secondary {
+            color: var(--secondary);
+        }
+        
+        .text-accent {
+            color: var(--accent);
+        }
+        
+        .border-primary {
+            border-color: var(--primary);
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .skill-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end) 1s 1 normal both,
+                       blink-caret 0.75s step-end infinite;
+            border-right: 3px solid var(--primary);
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .card-image {
+            height: 150px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-image canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .social-icon {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            border-radius: 50%;
+        }
+        
+        .social-icon:hover::before {
+            transform: scale(1.5);
+        }
+        
+        .rotate-icon {
+            transition: transform 0.5s ease;
+        }
+        
+        .rotate-icon:hover {
+            transform: rotate(360deg);
+        }
+        
+        .badge-glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px -5px var(--primary);
+            }
+            to {
+                box-shadow: 0 0 10px 5px var(--primary);
+            }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        
+        /* Staggered animation for elements */
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Project gallery styling */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 15px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 180px;
+            cursor: pointer;
+        }
+        
+        .gallery-item canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover canvas {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(59, 130, 246, 0.9) 0%, rgba(59, 130, 246, 0) 100%);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-cream">
+    <!-- Theme Toggle Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-2 rounded-full bg-primary-light text-white dark:bg-primary-dark dark:text-dark-text focus:outline-none pulse">
+            <i id="theme-icon" class="fas fa-moon rotate-icon"></i>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-cream dark:bg-dark-bg shadow-md z-40 py-3">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-primary">US<span class="text-secondary dark:text-dark-text">Portfolio</span></div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Home</a>
+                <a href="#about" class="nav-link text-secondary dark:text-dark-text hover:text-primary">About</a>
+                <a href="#education" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Education</a>
+                <a href="#experience" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Experience</a>
+                <a href="#projects" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Projects</a>
+                <a href="#skills" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Skills</a>
+                <a href="#contact" class="nav-link text-secondary dark:text-dark-text hover:text-primary">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-secondary dark:text-dark-text focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream dark:bg-dark-bg shadow-md absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="text-secondary dark:text-dark-text hover:text-primary">Home</a>
+                <a href="#about" class="text-secondary dark:text-dark-text hover:text-primary">About</a>
+                <a href="#education" class="text-secondary dark:text-dark-text hover:text-primary">Education</a>
+                <a href="#experience" class="text-secondary dark:text-dark-text hover:text-primary">Experience</a>
+                <a href="#projects" class="text-secondary dark:text-dark-text hover:text-primary">Projects</a>
+                <a href="#skills" class="text-secondary dark:text-dark-text hover:text-primary">Skills</a>
+                <a href="#contact" class="text-secondary dark:text-dark-text hover:text-primary">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with animated background -->
+    <section id="home" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <canvas id="hero-canvas" class="w-full h-full"></canvas>
+        </div>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 mb-10 md:mb-0 flex justify-center">
+                <div class="relative w-64 h-64 rounded-full overflow-hidden floating" id="profile-picture">
+                    <canvas id="profile-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                    <div class="profile-overlay flex items-center justify-center">
+                        <span class="text-white text-2xl font-bold">Hello!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 text-center md:text-left animate-on-scroll">
+                <p class="text-primary dark:text-primary-light font-medium mb-2">Hello, I'm</p>
+                <h1 class="text-4xl md:text-5xl font-bold text-secondary dark:text-dark-text mb-4 typing-animation">UWAYO Samuel</h1>
+                <p class="text-xl text-gray-700 dark:text-dark-text mb-6">Student & Aspiring Technical Leader</p>
+                <div class="flex space-x-4 justify-center md:justify-start">
+                    <a href="#contact" class="px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-primary-dark transition-colors transform hover:scale-105 transition-transform">Contact Me</a>
+                    <a href="#experience" class="px-6 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition-colors transform hover:scale-105 transition-transform">My Experience</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-cream dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-secondary dark:text-dark-text mb-12">About <span class="text-primary">Me</span></h2>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 pr-0 md:pr-10 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-4">Profile</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        I am an ambitious student at Liquidnet Family High School at Agahozo-Shalom Youth Village, 
+                        pursuing Mathematics, Computer Science, and Economics. I have developed strong leadership 
+                        skills through my roles as President of the Business Club and Vice President of the Science Club.
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        My passion lies in combining technical knowledge with business acumen to create innovative 
+                        solutions. I have been recognized for excellence in business pitch competitions and science fairs, 
+                        demonstrating my ability to turn concepts into impactful projects.
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        Through programs like ILEAD and Critical Thinking for Peace, I've enhanced my leadership, 
+                        public speaking, and collaboration skills, preparing me for future challenges in the 
+                        technological and business landscapes.
+                    </p>
+                    
+                    <!-- Visual representation of strengths with icons -->
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="flex items-center space-x-3 p-3 bg-white dark:bg-dark-card rounded-lg shadow-sm transform hover:scale-105 transition-transform">
+                            <div class="text-primary text-2xl"><i class="fas fa-lightbulb"></i></div>
+                            <div>
+                                <h4 class="font-medium text-secondary dark:text-dark-text">Innovation</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Creative solutions</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white dark:bg-dark-card rounded-lg shadow-sm transform hover:scale-105 transition-transform">
+                            <div class="text-primary text-2xl"><i class="fas fa-users"></i></div>
+                            <div>
+                                <h4 class="font-medium text-secondary dark:text-dark-text">Leadership</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Team management</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white dark:bg-dark-card rounded-lg shadow-sm transform hover:scale-105 transition-transform">
+                            <div class="text-primary text-2xl"><i class="fas fa-brain"></i></div>
+                            <div>
+                                <h4 class="font-medium text-secondary dark:text-dark-text">Problem Solving</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Analytical thinking</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-white dark:bg-dark-card rounded-lg shadow-sm transform hover:scale-105 transition-transform">
+                            <div class="text-primary text-2xl"><i class="fas fa-comment-dots"></i></div>
+                            <div>
+                                <h4 class="font-medium text-secondary dark:text-dark-text">Communication</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Clear expression</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-4">Personal Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Name:</p>
+                            <p class="text-gray-700 dark:text-gray-400">UWAYO Samuel</p>
+                        </div>
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Location:</p>
+                            <p class="text-gray-700 dark:text-gray-400">Rwanda</p>
+                        </div>
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Email:</p>
+                            <p class="text-gray-700 dark:text-gray-400">uwayo7867@gmail.com</p>
+                        </div>
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Languages:</p>
+                            <p class="text-gray-700 dark:text-gray-400">Kinyarwanda (native), English (proficiency)</p>
+                        </div>
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Interests:</p>
+                            <p class="text-gray-700 dark:text-gray-400">Travelling, exploring new things, reading books, and coding</p>
+                        </div>
+                        <div class="bg-white dark:bg-dark-card p-4 rounded-lg shadow-sm">
+                            <p class="font-medium text-secondary dark:text-gray-300">Certifications:</p>
+                            <p class="text-gray-700 dark:text-gray-400">STEAM DAY Projects, Summer Boot Camp, ILEAD Certificate, MUN Certificate</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Animated achievement badges -->
+                    <div class="mt-8 flex flex-wrap gap-3 justify-center">
+                        <div class="badge-glow bg-primary text-white text-sm font-medium px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-award mr-2"></i> Business Competition Winner
+                        </div>
+                        <div class="badge-glow bg-primary text-white text-sm font-medium px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-star mr-2"></i> Science Fair Excellence
+                        </div>
+                        <div class="badge-glow bg-primary text-white text-sm font-medium px-4 py-2 rounded-full flex items-center">
+                            <i class="fas fa-certificate mr-2"></i> Leadership Award
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-20 bg-primary-light dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-white dark:text-dark-text mb-12">My <span class="text-white">Education</span></h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden animate-on-scroll">
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">Liquidnet Family High School @ Agahozo-Shalom Youth Village</h3>
+                        <p class="text-white opacity-90">Advanced Level - S5</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-col md:flex-row justify-between mb-4">
+                            <div class="mb-2 md:mb-0">
+                                <span class="font-medium text-secondary dark:text-dark-text">Combination:</span>
+                                <span class="text-gray-700 dark:text-gray-300"> Mathematics Computer Economics</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-secondary dark:text-dark-text">Expected Graduation:</span>
+                                <span class="text-gray-700 dark:text-gray-300"> July 2026</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-medium text-secondary dark:text-dark-text mb-2">Academic Achievements:</h4>
+                            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300">
+                                <li>Recognized for excellence in business pitch competitions</li>
+                                <li>Developed innovative projects for science fairs</li>
+                                <li>Active participant in ILEAD leadership program</li>
+                                <li>Engaged in Python programming classes</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Visual Education Timeline -->
+                        <div class="mt-8 relative">
+                            <h4 class="font-medium text-secondary dark:text-dark-text mb-4">Education Timeline</h4>
+                            <div class="flex">
+                                <div class="education-timeline-visual relative w-full h-20 mb-6">
+                                    <canvas id="education-timeline" class="w-full h-full"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Course Highlights -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                <div class="bg-primary-light dark:bg-primary-dark text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                                    <div class="text-2xl mb-2"><i class="fas fa-square-root-alt"></i></div>
+                                    <h5 class="font-medium">Mathematics</h5>
+                                    <p class="text-sm opacity-80">Advanced topics</p>
+                                </div>
+                                <div class="bg-primary-light dark:bg-primary-dark text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                                    <div class="text-2xl mb-2"><i class="fas fa-laptop-code"></i></div>
+                                    <h5 class="font-medium">Computer Science</h5>
+                                    <p class="text-sm opacity-80">Programming & algorithms</p>
+                                </div>
+                                <div class="bg-primary-light dark:bg-primary-dark text-white p-4 rounded-lg transform hover:scale-105 transition-transform">
+                                    <div class="text-2xl mb-2"><i class="fas fa-chart-line"></i></div>
+                                    <h5 class="font-medium">Economics</h5>
+                                    <p class="text-sm opacity-80">Business principles</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-cream dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-secondary dark:text-dark-text mb-12">Work <span class="text-primary">Experience</span> & <span class="text-primary">Extracurriculars</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Business Club -->
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden card animate-on-scroll stagger-item">
+                    <div class="card-image">
+                        <canvas id="business-canvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">Business Club</h3>
+                        <p class="text-white opacity-90">President | Rwamagana, Rwanda</p>
+                        <p class="text-white opacity-80 text-sm mt-1">15/05/2024 - 06/07/2026</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="timeline-item">Led the club in completing innovative business projects, resulting in recognition for excellence in creativity and execution.</li>
+                            <li class="timeline-item">Represented the club in various business pitch competitions, with my project being recognized as one of the best.</li>
+                            <li class="timeline-item">Participated in the MoneyMakeOver challenge organized by BK and Idebate, enhancing my understanding of financial literacy and strategic financial management.</li>
+                            <li class="timeline-item">Developed skills in leadership, project management, public speaking, and teamwork, which have been instrumental in both academic and my future ambitions.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Science Club -->
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden card animate-on-scroll stagger-item">
+                    <div class="card-image">
+                        <canvas id="science-canvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">Science Club</h3>
+                        <p class="text-white opacity-90">Vice President | Rwamagana, Rwanda</p>
+                        <p class="text-white opacity-80 text-sm mt-1">15/05/2024 - 06/07/2026</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="timeline-item">Led the development of innovative projects aimed at enhancing technical skills and benefiting the community.</li>
+                            <li class="timeline-item">Facilitated collaboration among members to explore various scientific concepts and projects.</li>
+                            <li class="timeline-item">Achieved recognition at multiple school science fairs, with my projects consistently praised as the best for excellence and creativity.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ILEAD Program -->
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden card animate-on-scroll stagger-item">
+                    <div class="card-image">
+                        <canvas id="ilead-canvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">ILEAD Program</h3>
+                        <p class="text-white opacity-90">Student | Rwamagana, Rwanda</p>
+                        <p class="text-white opacity-80 text-sm mt-1">12/07/2022 - 06/07/2026</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="timeline-item">Enhanced leadership, collaboration and public speaking skills through workshops and other activities, preparing me for future roles in the community and my future career.</li>
+                            <li class="timeline-item">Transformed my values and reputation, becoming a responsible individual capable of making rational decisions and embracing calculated risks as opportunities for growth.</li>
+                            <li class="timeline-item">Engaged in collaborative projects that fostered teamwork and innovation, enabling me to take initiative and lead efforts that positively impact my peers and community.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Python Class -->
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden card animate-on-scroll stagger-item">
+                    <div class="card-image">
+                        <canvas id="python-canvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">Python Class</h3>
+                        <p class="text-white opacity-90">Student | Rwamagana, Rwanda</p>
+                        <p class="text-white opacity-80 text-sm mt-1">12/07/2023 - 06/07/2026</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="timeline-item">Engaged in learning Python programming through different lessons and coding exercises.</li>
+                            <li class="timeline-item">Applied knowledge of algorithms, data structures, and problem-solving techniques to various coding challenges.</li>
+                            <li class="timeline-item">Gained basic skills in coding and programming, while enhancing problem-solving and perseverance through real-world applications.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CTP Program -->
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg overflow-hidden card animate-on-scroll stagger-item">
+                    <div class="card-image">
+                        <canvas id="ctp-canvas" class="w-full h-full"></canvas>
+                    </div>
+                    <div class="bg-primary p-6">
+                        <h3 class="text-xl font-semibold text-white">Critical Thinking for Peace (CTP)</h3>
+                        <p class="text-white opacity-90">Active Member | Rwamagana, Rwanda</p>
+                        <p class="text-white opacity-80 text-sm mt-1">12/07/2022 - 06/07/2026</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="timeline-item">Delegate as Kenya president during the MUN conference where I have gained more experience and numerous skills, like Public speaking, confidence and critical thinking as well.</li>
+                            <li class="timeline-item">Generated many ideas from community service which is also part of CTP club, where I came up with profitable business ideas which would help society and generate income as well.</li>
+                            <li class="timeline-item">Participated in discussions on peacebuilding and conflict resolution, improving analytical skills and collaborating with diverse groups to propose effective solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section (New) -->
+    <section id="projects" class="py-20 bg-primary-light dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-white dark:text-dark-text mb-12">My <span class="text-white">Projects</span></h2>
+            
+            <div class="gallery-container animate-on-scroll">
+                <div class="gallery-item">
+                    <canvas id="project1-canvas" class="w-full h-full"></canvas>
+                    <div class="gallery-overlay">
+                        <h3 class="font-bold">Business Pitch Competition</h3>
+                        <p class="text-sm">Award-winning business concept</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <canvas id="project2-canvas" class="w-full h-full"></canvas>
+                    <div class="gallery-overlay">
+                        <h3 class="font-bold">Science Fair Innovation</h3>
+                        <p class="text-sm">Technology solution for community needs</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <canvas id="project3-canvas" class="w-full h-full"></canvas>
+                    <div class="gallery-overlay">
+                        <h3 class="font-bold">Python App Development</h3>
+                        <p class="text-sm">Educational application project</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <canvas id="project4-canvas" class="w-full h-full"></canvas>
+                    <div class="gallery-overlay">
+                        <h3 class="font-bold">MoneyMakeOver Challenge</h3>
+                        <p class="text-sm">Financial literacy initiative</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center animate-on-scroll">
+                <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-primary mb-2 counter" data-target="5">0</div>
+                    <p class="text-gray-700 dark:text-gray-300">Projects Completed</p>
+                </div>
+                <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-primary mb-2 counter" data-target="3">0</div>
+                    <p class="text-gray-700 dark:text-gray-300">Awards Won</p>
+                </div>
+                <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-primary mb-2 counter" data-target="8">0</div>
+                    <p class="text-gray-700 dark:text-gray-300">Team Collaborations</p>
+                </div>
+                <div class="bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform">
+                    <div class="text-3xl font-bold text-primary mb-2 counter" data-target="2">0</div>
+                    <p class="text-gray-700 dark:text-gray-300">Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-cream dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-secondary dark:text-dark-text mb-12">My <span class="text-primary">Skills</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Professional Skills -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-6">Professional Skills</h3>
+                    
+                    <div class="space-y-12">
+                        <div class="relative">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-secondary dark:text-dark-text font-medium flex items-center">
+                                    <i class="fas fa-users text-primary mr-2"></i> Leadership
+                                </span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="absolute -right-1 top-6">
+                                <canvas id="leadership-icon" width="30" height="30" class="rotating-skill-icon"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-secondary dark:text-dark-text font-medium flex items-center">
+                                    <i class="fas fa-puzzle-piece text-primary mr-2"></i> Problem Solving
+                                </span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="absolute -right-1 top-6">
+                                <canvas id="problem-icon" width="30" height="30" class="rotating-skill-icon"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-secondary dark:text-dark-text font-medium flex items-center">
+                                    <i class="fas fa-microphone text-primary mr-2"></i> Public Speaking
+                                </span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <div class="absolute -right-1 top-6">
+                                <canvas id="speaking-icon" width="30" height="30" class="rotating-skill-icon"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-secondary dark:text-dark-text font-medium flex items-center">
+                                    <i class="fas fa-brain text-primary mr-2"></i> Critical Thinking
+                                </span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="absolute -right-1 top-6">
+                                <canvas id="thinking-icon" width="30" height="30" class="rotating-skill-icon"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-secondary dark:text-dark-text font-medium flex items-center">
+                                    <i class="fas fa-hands-helping text-primary mr-2"></i> Teamwork
+                                </span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="absolute -right-1 top-6">
+                                <canvas id="teamwork-icon" width="30" height="30" class="rotating-skill-icon"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Skills -->
+                <div class="animate-on-scroll">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-6">Technical Skills</h3>
+                    
+                    <!-- Visual representation of technical skills -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+                        <div class="skill-circle">
+                            <canvas id="python-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">Python</p>
+                        </div>
+                        <div class="skill-circle">
+                            <canvas id="office-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">MS Office</p>
+                        </div>
+                        <div class="skill-circle">
+                            <canvas id="google-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">Google</p>
+                        </div>
+                        <div class="skill-circle">
+                            <canvas id="arduino-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">Arduino</p>
+                        </div>
+                        <div class="skill-circle">
+                            <canvas id="figma-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">Figma</p>
+                        </div>
+                        <div class="skill-circle">
+                            <canvas id="cmu-skill" width="120" height="120"></canvas>
+                            <p class="text-center mt-2 text-secondary dark:text-dark-text font-medium">CMU CS</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 mt-6">
+                        <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Piano</span>
+                        <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Project Management</span>
+                        <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Financial Literacy</span>
+                        <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Business Planning</span>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-6">Languages</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-secondary dark:text-dark-text font-medium">Kinyarwanda (Native)</span>
+                                    <span class="text-primary">100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-secondary dark:text-dark-text font-medium">English (Proficiency)</span>
+                                    <span class="text-primary">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-primary-light dark:bg-dark-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-white dark:text-dark-text mb-12">Contact <span class="text-white">Me</span></h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="animate-on-scroll bg-white dark:bg-dark-card p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-6">Get In Touch</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        Feel free to reach out to me for any inquiries, collaboration opportunities, or just to connect.
+                        I'm always open to discussing new projects and ideas.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 bg-primary-light dark:bg-primary-dark rounded-lg transform hover:scale-105 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-white text-opacity-80">Email</p>
+                                <p class="text-white font-medium">uwayo7867@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center p-4 bg-primary-light dark:bg-primary-dark rounded-lg transform hover:scale-105 transition-transform">
+                            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-white text-opacity-80">Location</p>
+                                <p class="text-white font-medium">Rwanda</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Map Visualization -->
+                    <div class="mt-8 h-40 relative rounded-lg overflow-hidden">
+                        <canvas id="map-canvas" class="w-full h-full"></canvas>
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <div class="w-8 h-8 bg-primary rounded-full pulse flex items-center justify-center">
+                                <i class="fas fa-map-pin text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white dark:bg-dark-card shadow-lg rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold text-secondary dark:text-dark-text mb-6">Send Message</h3>
+                    
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" id="name" class="w-full px-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light dark:bg-gray-700 dark:text-white text-base" placeholder="Your Name">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="email" id="email" class="w-full px-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light dark:bg-gray-700 dark:text-white text-base" placeholder="Your Email">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-comment-alt"></i>
+                                </span>
+                                <textarea id="message" rows="4" class="w-full px-10 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-light dark:bg-gray-700 dark:text-white text-base" placeholder="Your Message"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition-colors transform hover:scale-105 transition-transform flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Send Message
+                        </button>
+                    </form>
+                    
+                    <div id="form-status" class="mt-4 text-center hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-primary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-2xl font-bold mb-4">UWAYO Samuel</h3>
+            <p class="mb-6">Student & Aspiring Technical Leader</p>
+            
+            <div class="flex justify-center space-x-4 mb-6">
+                <a href="#" class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-colors social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-colors social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-colors social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-primary transition-colors social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            
+            <p>&copy; 2024 UWAYO Samuel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        // Check for saved theme preference or use the system preference
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+        
+        // Listen for OS theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {  // Only if user hasn't manually set theme
+                if (e.matches) {
+                    document.documentElement.classList.add('dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+        });
+        
+        // Drawing animated background for hero section
+        const heroCanvas = document.getElementById('hero-canvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        
+        function setupHeroCanvas() {
+            heroCanvas.width = window.innerWidth;
+            heroCanvas.height = document.getElementById('home').offsetHeight;
+            
+            const isDark = document.documentElement.classList.contains('dark');
+            const bgColor = isDark ? '#0F172A' : '#93C5FD';
+            
+            heroCtx.fillStyle = bgColor;
+            heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+            
+            // Draw animated particles
+            const particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * heroCanvas.width,
+                    y: Math.random() * heroCanvas.height,
+                    radius: Math.random() * 3 + 1,
+                    color: isDark ? '#3B82F6' : '#FFFFFF',
+                    speedX: Math.random() * 1 - 0.5,
+                    speedY: Math.random() * 1 - 0.5
+                });
+            }
+            
+            function animateParticles() {
+                heroCtx.fillStyle = bgColor;
+                heroCtx.fillRect(0, 0, heroCanvas.width, heroCanvas.height);
+                
+                particles.forEach(particle => {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    if (particle.x < 0 || particle.x > heroCanvas.width) 
+                        particle.speedX = -particle.speedX;
+                    
+                    if (particle.y < 0 || particle.y > heroCanvas.height)
+                        particle.speedY = -particle.speedY;
+                    
+                    heroCtx.beginPath();
+                    heroCtx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    heroCtx.fillStyle = particle.color;
+                    heroCtx.fill();
+                });
+                
+                // Draw connecting lines between nearby particles
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            heroCtx.beginPath();
+                            heroCtx.moveTo(particles[i].x, particles[i].y);
+                            heroCtx.lineTo(particles[j].x, particles[j].y);
+                            heroCtx.strokeStyle = isDark ? 
+                                `rgba(59, 130, 246, ${0.2 - distance/500})` : 
+                                `rgba(255, 255, 255, ${0.2 - distance/500})`;
+                            heroCtx.stroke();
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            animateParticles();
+        }
+        
+        // Drawing profile picture with canvas
+        const canvas = document.getElementById('profile-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function setupCanvas() {
+            // Set canvas dimensions to match the container
+            const container = document.getElementById('profile-picture');
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            
+            // Draw profile picture placeholder
+            drawProfilePicture();
+        }
+        
+        function drawProfilePicture() {
+            const width = canvas.width;
+            const height = canvas.height;
+            const centerX = width / 2;
+            const centerY = height / 2;
+            
+            // Draw background with gradient
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, width/2);
+            gradient.addColorStop(0, '#93C5FD');
+            gradient.addColorStop(1, '#3B82F6');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // Draw decorative circles
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const x = centerX + Math.cos(angle) * (width * 0.35);
+                const y = centerY + Math.sin(angle) * (height * 0.35);
+                const radius = width * 0.06;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.fill();
+            }
+            
+            // Draw center circle for initials
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, width * 0.25, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fill();
+            
+            // Draw initials
+            ctx.fillStyle = '#1D4ED8';
+            ctx.font = `bold ${width/4}px Poppins, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('US', centerX, centerY);
+        }
+        
+        // Draw Education Timeline
+        function drawEducationTimeline() {
+            const canvas = document.getElementById('education-timeline');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = 80;
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Draw timeline line
+            ctx.beginPath();
+            ctx.moveTo(20, height/2);
+            ctx.lineTo(width - 20, height/2);
+            ctx.strokeStyle = '#3B82F6';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            
+            // Draw milestone points
+            const milestones = [
+                { x: width * 0.1, label: '2022', sublabel: 'Joined School' },
+                { x: width * 0.35, label: '2023', sublabel: 'Python Class' },
+                { x: width * 0.6, label: '2024', sublabel: 'Leadership Role' },
+                { x: width * 0.9, label: '2026', sublabel: 'Graduation' }
+            ];
+            
+            milestones.forEach(milestone => {
+                // Draw point
+                ctx.beginPath();
+                ctx.arc(milestone.x, height/2, 10, 0, Math.PI * 2);
+                ctx.fillStyle = '#3B82F6';
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw label
+                ctx.fillStyle = '#3B82F6';
+                ctx.font = 'bold 14px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText(milestone.label, milestone.x, height/2 - 20);
+                
+                // Draw sublabel
+                ctx.fillStyle = '#64748B';
+                ctx.font = '12px Poppins';
+                ctx.fillText(milestone.sublabel, milestone.x, height/2 + 25);
+            });
+        }
+        
+        // Draw Experience Card Images
+        function drawExperienceCards() {
+            // Business Club
+            const businessCanvas = document.getElementById('business-canvas');
+            if (businessCanvas) {
+                const ctx = businessCanvas.getContext('2d');
+                businessCanvas.width = businessCanvas.parentElement.offsetWidth;
+                businessCanvas.height = businessCanvas.parentElement.offsetHeight;
+                
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, businessCanvas.width, 0);
+                gradient.addColorStop(0, '#3B82F6');
+                gradient.addColorStop(1, '#60A5FA');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, businessCanvas.width, businessCanvas.height);
+                
+                // Draw business icons
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                
+                // Chart icon
+                ctx.beginPath();
+                ctx.moveTo(50, 120);
+                ctx.lineTo(50, 70);
+                ctx.lineTo(80, 90);
+                ctx.lineTo(110, 50);
+                ctx.lineTo(140, 80);
+                ctx.lineTo(170, 30);
+                ctx.stroke();
+                
+                // Dollar signs
+                ctx.font = '40px sans-serif';
+                ctx.fillText('$', 30, 50);
+                ctx.fillText('$', 150, 110);
+                
+                // Title overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(0, businessCanvas.height - 40, businessCanvas.width, 40);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Business Leadership', businessCanvas.width/2, businessCanvas.height - 15);
+            }
+            
+            // Science Club
+            const scienceCanvas = document.getElementById('science-canvas');
+            if (scienceCanvas) {
+                const ctx = scienceCanvas.getContext('2d');
+                scienceCanvas.width = scienceCanvas.parentElement.offsetWidth;
+                scienceCanvas.height = scienceCanvas.parentElement.offsetHeight;
+                
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, scienceCanvas.width, 0);
+                gradient.addColorStop(0, '#1D4ED8');
+                gradient.addColorStop(1, '#3B82F6');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, scienceCanvas.width, scienceCanvas.height);
+                
+                // Draw science elements
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 2;
+                
+                // Atom
+                const centerX = scienceCanvas.width / 2;
+                const centerY = scienceCanvas.height / 2;
+                
+                // Nucleus
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 15, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fill();
+                
+                // Electron orbits
+                for (let i = 0; i < 3; i++) {
+                    const angle = (i / 3) * Math.PI;
+                    ctx.beginPath();
+                    ctx.ellipse(centerX, centerY, 60, 30, angle, 0, Math.PI * 2);
+                    ctx.stroke();
+                    
+                    // Electrons
+                    const electronX = centerX + Math.cos(i * 2) * 60;
+                    const electronY = centerY + Math.sin(i * 2) * 30;
+                    ctx.beginPath();
+                    ctx.arc(electronX, electronY, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fill();
+                }
+                
+                // Title overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(0, scienceCanvas.height - 40, scienceCanvas.width, 40);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Science Innovation', scienceCanvas.width/2, scienceCanvas.height - 15);
+            }
+            
+            // ILEAD Program
+            const ileadCanvas = document.getElementById('ilead-canvas');
+            if (ileadCanvas) {
+                const ctx = ileadCanvas.getContext('2d');
+                ileadCanvas.width = ileadCanvas.parentElement.offsetWidth;
+                ileadCanvas.height = ileadCanvas.parentElement.offsetHeight;
+                
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, ileadCanvas.width, 0);
+                gradient.addColorStop(0, '#60A5FA');
+                gradient.addColorStop(1, '#93C5FD');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, ileadCanvas.width, ileadCanvas.height);
+                
+                // Draw leadership visual
+                const centerX = ileadCanvas.width / 2;
+                const centerY = ileadCanvas.height / 2;
+                
+                // Draw people icons in a V formation
+                const people = [
+                    { x: centerX, y: centerY - 30, size: 25 }, // Leader
+                    { x: centerX - 40, y: centerY + 10, size: 20 },
+                    { x: centerX - 20, y: centerY + 10, size: 20 },
+                    { x: centerX + 20, y: centerY + 10, size: 20 },
+                    { x: centerX + 40, y: centerY + 10, size: 20 }
+                ];
+                
+                // Connect lines
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.lineWidth = 2;
+                for (let i = 1; i < people.length; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(people[0].x, people[0].y);
+                    ctx.lineTo(people[i].x, people[i].y);
+                    ctx.stroke();
+                }
+                
+                // Draw people
+                people.forEach((person, i) => {
+                    // Head
+                    ctx.beginPath();
+                    ctx.arc(person.x, person.y - person.size/3, person.size/3, 0, Math.PI * 2);
+                    ctx.fillStyle = i === 0 ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.6)';
+                    ctx.fill();
+                    
+                    // Body
+                    ctx.beginPath();
+                    ctx.moveTo(person.x, person.y - person.size/6);
+                    ctx.lineTo(person.x, person.y + person.size/2);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = i === 0 ? 3 : 2;
+                    ctx.stroke();
+                    
+                    // Arms
+                    ctx.beginPath();
+                    ctx.moveTo(person.x - person.size/3, person.y);
+                    ctx.lineTo(person.x + person.size/3, person.y);
+                    ctx.stroke();
+                    
+                    // Legs
+                    ctx.beginPath();
+                    ctx.moveTo(person.x, person.y + person.size/2);
+                    ctx.lineTo(person.x - person.size/4, person.y + person.size);
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(person.x, person.y + person.size/2);
+                    ctx.lineTo(person.x + person.size/4, person.y + person.size);
+                    ctx.stroke();
+                });
+                
+                // Title overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(0, ileadCanvas.height - 40, ileadCanvas.width, 40);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Leadership Development', ileadCanvas.width/2, ileadCanvas.height - 15);
+            }
+            
+            // Python Class
+            const pythonCanvas = document.getElementById('python-canvas');
+            if (pythonCanvas) {
+                const ctx = pythonCanvas.getContext('2d');
+                pythonCanvas.width = pythonCanvas.parentElement.offsetWidth;
+                pythonCanvas.height = pythonCanvas.parentElement.offsetHeight;
+                
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, pythonCanvas.width, 0);
+                gradient.addColorStop(0, '#0F766E');
+                gradient.addColorStop(1, '#14B8A6');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, pythonCanvas.width, pythonCanvas.height);
+                
+                // Draw code blocks
+                const lines = [
+                    'def hello_world():',
+                    '    print("Hello World")',
+                    '',
+                    'for i in range(5):',
+                    '    print(i)',
+                    '',
+                    'class Person:',
+                    '    def __init__(self):',
+                    '        self.name = "Samuel"'
+                ];
+                
+                ctx.font = '12px monospace';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                
+                lines.forEach((line, i) => {
+                    ctx.fillText(line, 20, 25 + i * 15);
+                });
+                
+                // Draw Python logo
+                const logoX = pythonCanvas.width - 50;
+                const logoY = 50;
+                
+                // Blue part
+                ctx.beginPath();
+                ctx.arc(logoX - 10, logoY, 15, 0, Math.PI * 2);
+                ctx.fillStyle = '#3776AB';
+                ctx.fill();
+                
+                // Yellow part
+                ctx.beginPath();
+                ctx.arc(logoX + 10, logoY, 15, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFD43B';
+                ctx.fill();
+                
+                // Title overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(0, pythonCanvas.height - 40, pythonCanvas.width, 40);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Python Programming', pythonCanvas.width/2, pythonCanvas.height - 15);
+            }
+            
+            // CTP Program
+            const ctpCanvas = document.getElementById('ctp-canvas');
+            if (ctpCanvas) {
+                const ctx = ctpCanvas.getContext('2d');
+                ctpCanvas.width = ctpCanvas.parentElement.offsetWidth;
+                ctpCanvas.height = ctpCanvas.parentElement.offsetHeight;
+                
+                // Background gradient
+                const gradient = ctx.createLinearGradient(0, 0, ctpCanvas.width, 0);
+                gradient.addColorStop(0, '#3B82F6');
+                gradient.addColorStop(1, '#1D4ED8');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, ctpCanvas.width, ctpCanvas.height);
+                
+                // Draw peace symbol
+                const centerX = ctpCanvas.width / 2;
+                const centerY = ctpCanvas.height / 2;
+                const radius = 40;
+                
+                // Circle
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // Vertical line
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY - radius + 5);
+                ctx.lineTo(centerX, centerY + radius - 5);
+                ctx.stroke();
+                
+                // Diagonal lines
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX - radius * 0.7, centerY + radius * 0.7);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + radius * 0.7, centerY + radius * 0.7);
+                ctx.stroke();
+                
+                // Draw globe elements
+                for (let i = 0; i < 3; i++) {
+                    ctx.beginPath();
+                    ctx.ellipse(centerX, centerY, radius * 0.9, radius * 0.3, i * Math.PI / 3, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+                
+                // Title overlay
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fillRect(0, ctpCanvas.height - 40, ctpCanvas.width, 40);
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 18px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Critical Thinking for Peace', ctpCanvas.width/2, ctpCanvas.height - 15);
+            }
+        }
+        
+        // Draw Project Canvases
+        function drawProjectCanvases() {
+            // Project 1: Business Pitch
+            const project1Canvas = document.getElementById('project1-canvas');
+            if (project1Canvas) {
+                const ctx = project1Canvas.getContext('2d');
+                project1Canvas.width = project1Canvas.parentElement.offsetWidth;
+                project1Canvas.height = project1Canvas.parentElement.offsetHeight;
+                
+                // Background
+                const gradient = ctx.createLinearGradient(0, 0, project1Canvas.width, 0);
+                gradient.addColorStop(0, '#3B82F6');
+                gradient.addColorStop(1, '#60A5FA');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, project1Canvas.width, project1Canvas.height);
+                
+                // Business plan elements
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+                
+                // Chart
+                ctx.beginPath();
+                ctx.moveTo(30, 150);
+                ctx.lineTo(30, 50);
+                ctx.lineTo(70, 90);
+                ctx.lineTo(110, 40);
+                ctx.lineTo(150, 60);
+                ctx.lineTo(190, 30);
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // Trophy icon
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                
+                // Trophy cup
+                ctx.beginPath();
+                ctx.arc(150, 90, 15, Math.PI, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.rect(135, 90, 30, 25);
+                ctx.fill();
+                
+                // Trophy base
+                ctx.beginPath();
+                ctx.moveTo(145, 115);
+                ctx.lineTo(155, 115);
+                ctx.lineTo(158, 130);
+                ctx.lineTo(142, 130);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Trophy handles
+                ctx.beginPath();
+                ctx.arc(135, 95, 10, Math.PI * 0.5, Math.PI * 1.5);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.arc(165, 95, 10, Math.PI * 1.5, Math.PI * 0.5);
+                ctx.stroke();
+            }
+            
+            // Project 2: Science Fair
+            const project2Canvas = document.getElementById('project2-canvas');
+            if (project2Canvas) {
+                const ctx = project2Canvas.getContext('2d');
+                project2Canvas.width = project2Canvas.parentElement.offsetWidth;
+                project2Canvas.height = project2Canvas.parentElement.offsetHeight;
+                
+                // Background
+                const gradient = ctx.createLinearGradient(0, 0, project2Canvas.width, 0);
+                gradient.addColorStop(0, '#0F766E');
+                gradient.addColorStop(1, '#14B8A6');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, project2Canvas.width, project2Canvas.height);
+                
+                // Science fair display
+                const centerX = project2Canvas.width / 2;
+                const centerY = project2Canvas.height / 2;
+                
+                // Display board
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.fillRect(centerX - 60, centerY - 50, 120, 100);
+                
+                // Left panel
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.fillRect(centerX - 95, centerY - 40, 30, 80);
+                
+                // Right panel
+                ctx.fillRect(centerX + 65, centerY - 40, 30, 80);
+                
+                // Title
+                ctx.fillStyle = '#0F766E';
+                ctx.font = 'bold 10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('SCIENCE INNOVATION', centerX, centerY - 35);
+                
+                // Content lines
+                ctx.fillRect(centerX - 40, centerY - 20, 80, 2);
+                ctx.fillRect(centerX - 40, centerY - 10, 60, 2);
+                ctx.fillRect(centerX - 40, centerY, 70, 2);
+                ctx.fillRect(centerX - 40, centerY + 10, 50, 2);
+                ctx.fillRect(centerX - 40, centerY + 20, 65, 2);
+                
+                // Project display
+                ctx.beginPath();
+                ctx.arc(centerX, centerY + 50, 15, 0, Math.PI * 2);
+                ctx.fillStyle = '#0F766E';
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            
+            // Project 3: Python App
+            const project3Canvas = document.getElementById('project3-canvas');
+            if (project3Canvas) {
+                const ctx = project3Canvas.getContext('2d');
+                project3Canvas.width = project3Canvas.parentElement.offsetWidth;
+                project3Canvas.height = project3Canvas.parentElement.offsetHeight;
+                
+                // Background
+                const gradient = ctx.createLinearGradient(0, 0, project3Canvas.width, 0);
+                gradient.addColorStop(0, '#1D4ED8');
+                gradient.addColorStop(1, '#3B82F6');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, project3Canvas.width, project3Canvas.height);
+                
+                // Computer screen
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(40, 30, 140, 90);
+                
+                // Code on screen
+                ctx.fillStyle = '#1D4ED8';
+                
+                const codeLines = [
+                    'def main():',
+                    '    print("App")',
+                    '    data = [1,2,3]',
+                    '    show(data)',
+                    '',
+                    'if __name__ == "__main__":',
+                    '    main()'
+                ];
+                
+                ctx.font = '8px monospace';
+                ctx.textAlign = 'left';
+                
+                codeLines.forEach((line, i) => {
+                    ctx.fillText(line, 50, 45 + i * 10);
+                });
+                
+                // Computer base
+                ctx.fillStyle = '#DDDDDD';
+                ctx.beginPath();
+                ctx.moveTo(80, 120);
+                ctx.lineTo(140, 120);
+                ctx.lineTo(150, 140);
+                ctx.lineTo(70, 140);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Python logo
+                ctx.beginPath();
+                ctx.arc(160, 50, 15, 0, Math.PI * 2);
+                ctx.fillStyle = '#3776AB';
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(180, 50, 15, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFD43B';
+                ctx.fill();
+            }
+            
+            // Project 4: MoneyMakeOver
+            const project4Canvas = document.getElementById('project4-canvas');
+            if (project4Canvas) {
+                const ctx = project4Canvas.getContext('2d');
+                project4Canvas.width = project4Canvas.parentElement.offsetWidth;
+                project4Canvas.height = project4Canvas.parentElement.offsetHeight;
+                
+                // Background
+                const gradient = ctx.createLinearGradient(0, 0, project4Canvas.width, 0);
+                gradient.addColorStop(0, '#93C5FD');
+                gradient.addColorStop(1, '#60A5FA');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, project4Canvas.width, project4Canvas.height);
+                
+                // Money/Finance symbols
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                
+                // Dollar sign
+                ctx.font = 'bold 60px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('$', 110, 100);
+                
+                // Coins
+                const coins = [
+                    { x: 50, y: 80, r: 20 },
+                    { x: 150, y: 60, r: 15 },
+                    { x: 180, y: 110, r: 18 },
+                    { x: 70, y: 120, r: 13 }
+                ];
+                
+                coins.forEach(coin => {
+                    ctx.beginPath();
+                    ctx.arc(coin.x, coin.y, coin.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 215, 0, 0.5)';
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255, 215, 0, 0.8)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    
+                    // Coin detail
+                    ctx.beginPath();
+                    ctx.arc(coin.x, coin.y, coin.r * 0.7, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
+                    ctx.stroke();
+                });
+            }
+        }
+        
+        // Draw Map Canvas
+        function drawMapCanvas() {
+            const mapCanvas = document.getElementById('map-canvas');
+            if (!mapCanvas) return;
+            
+            const ctx = mapCanvas.getContext('2d');
+            mapCanvas.width = mapCanvas.parentElement.offsetWidth;
+            mapCanvas.height = mapCanvas.parentElement.offsetHeight;
+            
+            // Draw simplified map of Rwanda
+            const rwandaPoints = [
+                {x: 50, y: 70},
+                {x: 180, y: 40},
+                {x: 220, y: 80},
+                {x: 190, y: 130},
+                {x: 100, y: 150},
+                {x: 30, y: 120}
+            ];
+            
+            ctx.beginPath();
+            ctx.moveTo(rwandaPoints[0].x, rwandaPoints[0].y);
+            for (let i = 1; i < rwandaPoints.length; i++) {
+                ctx.lineTo(rwandaPoints[i].x, rwandaPoints[i].y);
+            }
+            ctx.closePath();
+            
+            // Fill with gradient
+            const gradient = ctx.createLinearGradient(0, 0, mapCanvas.width, mapCanvas.height);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+            gradient.addColorStop(1, 'rgba(147, 197, 253, 0.3)');
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            // Stroke
+            ctx.strokeStyle = '#3B82F6';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw location marker (Rwamagana)
+            const markerX = 120;
+            const markerY = 90;
+            
+            // Location name
+            ctx.fillStyle = '#1D4ED8';
+            ctx.font = 'bold 12px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText('Rwamagana', markerX, markerY - 20);
+        }
+        
+        // Draw skill circles
+        function drawSkillCircles() {
+            const skills = [
+                { id: 'python-skill', percent: 75, icon: '🐍', color: '#3776AB' },
+                { id: 'office-skill', percent: 85, icon: '📊', color: '#D83B01' },
+                { id: 'google-skill', percent: 90, icon: 'G', color: '#4285F4' },
+                { id: 'arduino-skill', percent: 65, icon: '⚡', color: '#00979D' },
+                { id: 'figma-skill', percent: 70, icon: 'F', color: '#F24E1E' },
+                { id: 'cmu-skill', percent: 80, icon: '💻', color: '#3B82F6' }
+            ];
+            
+            skills.forEach(skill => {
+                const canvas = document.getElementById(skill.id);
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                canvas.width = 120;
+                canvas.height = 120;
+                
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = 50;
+                
+                // Draw background circle
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)';
+                ctx.lineWidth = 10;
+                ctx.stroke();
+                
+                // Draw progress arc
+                const startAngle = -Math.PI / 2;
+                const endAngle = startAngle + (Math.PI * 2 * skill.percent / 100);
+                
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.strokeStyle = skill.color;
+                ctx.lineWidth = 10;
+                ctx.stroke();
+                
+                // Draw percentage in the center
+                ctx.fillStyle = '#3B82F6';
+                ctx.font = 'bold 24px Poppins';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`${skill.percent}%`, centerX, centerY);
+                
+                // Draw icon
+                ctx.fillStyle = skill.color;
+                ctx.font = '16px Arial';
+                ctx.fillText(skill.icon, centerX, centerY - 30);
+            });
+        }
+        
+        // Animate skill icons
+        function drawRotatingSkillIcons() {
+            const icons = [
+                { id: 'leadership-icon', emoji: '👑' },
+                { id: 'problem-icon', emoji: '🧩' },
+                { id: 'speaking-icon', emoji: '🎤' },
+                { id: 'thinking-icon', emoji: '🧠' },
+                { id: 'teamwork-icon', emoji: '🤝' }
+            ];
+            
+            icons.forEach(icon => {
+                const canvas = document.getElementById(icon.id);
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                canvas.width = 30;
+                canvas.height = 30;
+                
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(icon.emoji, canvas.width/2, canvas.height/2);
+            });
+        }
+        
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200;  // The lower the faster
+            
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                
+                const updateCount = () => {
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        count += increment;
+                        counter.innerText = Math.floor(count);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCount();
+            });
+        }
+        
+        // Set up canvas when page loads
+        window.addEventListener('load', () => {
+            setupHeroCanvas();
+            setupCanvas();
+            drawEducationTimeline();
+            drawExperienceCards();
+            drawProjectCanvases();
+            drawSkillCircles();
+            drawRotatingSkillIcons();
+            drawMapCanvas();
+        });
+        
+        window.addEventListener('resize', () => {
+            setupHeroCanvas();
+            setupCanvas();
+            drawEducationTimeline();
+            drawExperienceCards();
+            drawProjectCanvases();
+            drawMapCanvas();
+        });
+        
+        // Animate elements on scroll
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        
+        function checkScroll() {
+            animateElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', () => {
+            checkScroll();
+            
+            // Check if stats section is visible to trigger counter animation
+            const statsSection = document.querySelector('#projects');
+            if (statsSection) {
+                const statsSectionTop = statsSection.getBoundingClientRect().top;
+                if (statsSectionTop < window.innerHeight - 200 && !window.counterAnimated) {
+                    animateCounters();
+                    window.counterAnimated = true;
+                }
+            }
+        });
+        
+        checkScroll();  // Check on page load
+        
+        // Contact form handling
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !message) {
+                formStatus.textContent = 'Please fill in all fields';
+                formStatus.className = 'mt-4 text-center text-red-500';
+                formStatus.classList.remove('hidden');
+                return;
+            }
+            
+            // Simulate form submission (in a real app, this would send data to a server)
+            formStatus.textContent = 'Thank you for your message! I will get back to you soon.';
+            formStatus.className = 'mt-4 text-center text-green-500';
+            formStatus.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
+
+
